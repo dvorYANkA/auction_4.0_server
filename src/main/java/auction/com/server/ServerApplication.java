@@ -5,41 +5,44 @@ import model.Review;
 import model.filter.ProductFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-@SpringBootApplication
+@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 @RestController
+// @Controller
 public class ServerApplication {
 	List<Product> productListInsteadDB = new ArrayList<>();
 	List<Review> reviewListInsteadDB = new ArrayList<>();
 
 	ServerApplication(){
 		productListInsteadDB.add(Product.builder().id(0).title("First product").price(24).rating(4)
-				.categories(new String[]{"electronics","hardware"})
+				.categories("electronics, hardware")
 				.description("This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
 				.build());
 		productListInsteadDB.add(Product.builder().id(1).title("Second product").price(64).rating(3)
-				.categories(new String[]{"books"})
+				.categories("books")
 				.description("This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
 				.build());
 		productListInsteadDB.add(Product.builder().id(2).title("Third product").price(74).rating(4)
-				.categories(new String[]{"electronics"})
+				.categories("electronics")
 				.description("This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
 				.build());
 		productListInsteadDB.add(Product.builder().id(3).title("Fourth product").price(84).rating(3)
-				.categories(new String[]{"hardware"})
+				.categories("hardware")
 				.description("This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
 				.build());
 		productListInsteadDB.add(Product.builder().id(4).title("Fifth product").price(94).rating(5)
-				.categories(new String[]{"hardware", "electronics"})
+				.categories("hardware,electronics")
 				.description("This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
 				.build());
 		productListInsteadDB.add(Product.builder().id(5).title("Sixth product").price(54).rating(4)
-				.categories(new String[]{"books"})
+				.categories("books")
 				.description("This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
 				.build());
 
@@ -75,23 +78,28 @@ public class ServerApplication {
 		return returnList;
 	}
 
-	@PostMapping("/products/search")
+	@GetMapping("/products/search")
 	public List<Product> searchProducts(@RequestBody ProductFilter productFilter){
 		List<Product> test = new ArrayList<>();
 		for(Product product: productListInsteadDB){
 			if(product.getPrice() == productFilter.getPrice() &&
 					product.getTitle().toLowerCase().equals(productFilter.getTitle().toLowerCase()) &&
-					categoryFound(productFilter,product)
+					categoryFound(productFilter.getCategory(),product.getCategories())
 				)
 				test.add(product);
 		}
 		return test;
 	}
 
-	private boolean categoryFound(ProductFilter productFilter, Product product) {
+	private boolean categoryFound(String filterCategory, String productCategories) {
 		boolean categoryFound = false;
-		for(String category: product.getCategories()){
-			if (productFilter.getCategory().toLowerCase().equals(category.toLowerCase())){
+		String[] categoriesArray = productCategories.split(",");
+		for(int i = 0 ; i < categoriesArray.length; i++){
+			categoriesArray[i] = categoriesArray[i].trim();
+		}
+
+		for(String category: categoriesArray){
+			if (filterCategory.toLowerCase().equals(category.toLowerCase())){
 				categoryFound = true;
 				break;
 			}

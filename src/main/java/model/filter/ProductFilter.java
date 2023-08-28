@@ -1,5 +1,6 @@
 package model.filter;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Builder
@@ -8,8 +9,13 @@ import lombok.*;
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 public class ProductFilter {
-    //TODO: jsonProps???
+
+    @JsonProperty("title")
     String title;
+
+    @JsonProperty("price")
     Integer price;
+
+    @JsonProperty("category")
     String category;
 }
