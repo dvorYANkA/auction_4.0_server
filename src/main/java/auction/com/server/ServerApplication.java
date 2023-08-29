@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
+@SpringBootApplication//(exclude={DataSourceAutoConfiguration.class})
 @RestController
-// @Controller
+@Controller
 public class ServerApplication {
 	List<Product> productListInsteadDB = new ArrayList<>();
 	List<Review> reviewListInsteadDB = new ArrayList<>();
@@ -47,11 +47,11 @@ public class ServerApplication {
 				.build());
 
 		reviewListInsteadDB.add(Review.builder().id(0).productId(0).timestamp("2014-05-20T02:17:00+00:00")
-				.user("User 1").rating(5).comment("Aenean vestibulum velit id placerat posuere. Praesent...").build());
+				.userName("User 1").rating(5).comment("Aenean vestibulum velit id placerat posuere. Praesent...").build());
 		reviewListInsteadDB.add(Review.builder().id(1).productId(0).timestamp("2014-05-20T02:53:00+00:00")
-				.user("User 2").rating(3).comment("Aenean vestibulum velit id placerat posuere. Praesent...").build());
+				.userName("User 2").rating(3).comment("Aenean vestibulum velit id placerat posuere. Praesent...").build());
 		reviewListInsteadDB.add(Review.builder().id(2).productId(1).timestamp("2015-05-20T02:53:00+00:00")
-				.user("User 3").rating(3).comment("Aenean vestibulum velit id placerat posuere. Praesent...").build());
+				.userName("User 3").rating(3).comment("Aenean vestibulum velit id placerat posuere. Praesent...").build());
 	}
 
 	public static void main(String[] args) {
