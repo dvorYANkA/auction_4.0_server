@@ -1,21 +1,19 @@
 package model;
 
+import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Entity;
-import org.hibernate.annotations.Table;
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
 @Builder
 @Getter@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(appliesTo = "reviews")
+@Table(name = "reviews")
 public class Review {
+
+    @jakarta.persistence.Id
     @Column(name = "id")
     @Id // TODO: check if it okay I took this @Id from Jakarta of mb another lib should be used
     @GeneratedValue(strategy = GenerationType.IDENTITY)

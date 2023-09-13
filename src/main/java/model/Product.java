@@ -1,13 +1,9 @@
 package model;
 
+import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Entity;
-import org.hibernate.annotations.Table;
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
 
 @Builder
@@ -15,14 +11,15 @@ import javax.persistence.GenerationType;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(appliesTo = "products")
+@Table(name = "products")
 public class Product {
     int rating;
 
+    @jakarta.persistence.Id
     @Column(name = "id")
     @Id // TODO: check if it okay I took this @Id from Jakarta of mb another lib should be used
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    long id;
 
     @Column(name = "title")
     String title;
@@ -35,4 +32,8 @@ public class Product {
 
     @Column(name = "categories")
     String categories;
+
+    public Long getId() {
+        return id;
+    }
 }
