@@ -2,7 +2,6 @@ package model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 
 @Builder
@@ -10,12 +9,10 @@ import org.springframework.data.annotation.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "reviews")
 public class Review {
 
-    @jakarta.persistence.Id
     @Column(name = "id")
-    @Id // TODO: check if it okay I took this @Id from Jakarta of mb another lib should be used
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
@@ -33,4 +30,8 @@ public class Review {
 
     @Column(name = "comment")
     String comment;
+
+    public Review(int id) {
+        this.id = id;
+    }
 }

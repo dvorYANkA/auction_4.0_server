@@ -3,12 +3,20 @@ package auction.com.server;
 import model.Product;
 import model.Review;
 import model.filter.ProductFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import repository.ProductRepository;
+import repository.ReviewRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +25,8 @@ import java.util.List;
 @RestController
 @Controller
 public class ServerApplication {
+	private static JpaService jpaService = JpaService.getInstance();
+
 	List<Product> productListInsteadDB = new ArrayList<>();
 	List<Review> reviewListInsteadDB = new ArrayList<>();
 
@@ -55,8 +65,31 @@ public class ServerApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServerApplication.class, args);
+		try{
+			SpringApplication.run(ServerApplication.class, args);
+
+			EntityManagerFactory entityManagerFactory = jpaService.entityManagerFactory();
+			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			EntityTransaction transaction = entityManager.getTransaction();
+			//transaction.begin();
+			//entityManager.persist(new Product("entityManager.persist.attempt", 345));
+			//entityManager.persist(new Review(2345));
+			//transaction.commit();
+		}finally {
+			jpaService.shutdown();
+		}
 	}
+
+	/*
+	@Bean
+	public CommandLineRunner demo(ProductRepository productRepository, ReviewRepository reviewRepository) {
+		return (args) -> {
+			// save a few customers
+			productRepository.save(new Product(0,15, "Bauer", 300,"desc","books"));
+			reviewRepository.save(new Review(245,15, "2015-05-20T02:53:00+00:00","userNAme",3,"comment"));
+		};
+	}
+	*/
 
 	@GetMapping("/products/{id}")
 	public Product getSomeProductById(@PathVariable("id") Integer id){
