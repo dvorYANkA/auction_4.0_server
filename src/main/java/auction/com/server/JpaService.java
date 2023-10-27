@@ -2,7 +2,7 @@ package auction.com.server;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-
+//test//
 public class JpaService {
 
     private static JpaService instance;
