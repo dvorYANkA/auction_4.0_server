@@ -6,17 +6,19 @@ import model.filter.ProductFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.SpringVersion;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import repository.ProductRepository;
 import repository.ReviewRepository;
-///
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceContext;
+
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +77,9 @@ public class ServerApplication {
 			//entityManager.persist(new Product("entityManager.persist.attempt", 345));
 			//entityManager.persist(new Review(2345));
 			//transaction.commit();
+			//entityManager.close();
 		}finally {
+		//	String test = SpringVersion.getVersion();
 			jpaService.shutdown();
 		}
 	}
