@@ -4,9 +4,9 @@
              version="2.0">
 <persistence-unit name="testEntityManagerFactory" transaction-type="RESOURCE_LOCAL">
     <description>Hibernate EntityManager Demo</description>
-    <class>model.Product</class>
-    <class>model.Review</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <class>models.Product</class>
+    <class>models.Review</class>
+    <exclude-unlisted-classes/>
     <properties>
         <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL81Dialect"/>
         <property name="hibernate.hbm2ddl.auto" value="update"/>

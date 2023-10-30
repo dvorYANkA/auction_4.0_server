@@ -1,4 +1,4 @@
-package auction.com.server;
+package services;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;

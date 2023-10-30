@@ -1,31 +1,22 @@
 package auction.com.server;
 
-import model.Product;
-import model.Review;
-import model.filter.ProductFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+import models.Product;
+import models.Review;
+import models.filters.ProductFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.SpringVersion;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import repository.ProductRepository;
-import repository.ReviewRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.PersistenceContext;
+import services.JpaService;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @SpringBootApplication//(exclude={DataSourceAutoConfiguration.class})
 @RestController
-@Controller
 public class ServerApplication {
 	private static JpaService jpaService = JpaService.getInstance();
 
@@ -73,11 +64,11 @@ public class ServerApplication {
 			EntityManagerFactory entityManagerFactory = jpaService.entityManagerFactory();
 			EntityManager entityManager = entityManagerFactory.createEntityManager();
 			EntityTransaction transaction = entityManager.getTransaction();
-			//transaction.begin();
-			//entityManager.persist(new Product("entityManager.persist.attempt", 345));
-			//entityManager.persist(new Review(2345));
-			//transaction.commit();
-			//entityManager.close();
+			transaction.begin();
+			entityManager.merge(new Product("entityManager.persist.attempt", 345));
+			entityManager.merge(new Review(2345));
+			transaction.commit();
+			entityManager.close();
 		}finally {
 		//	String test = SpringVersion.getVersion();
 			jpaService.shutdown();
