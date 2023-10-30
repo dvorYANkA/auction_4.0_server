@@ -1,8 +1,8 @@
-package auction.com.server;
+package auction.com.server.services;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-//test//
+
 public class JpaService {
 
     private static JpaService instance;
