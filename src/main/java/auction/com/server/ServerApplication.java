@@ -1,8 +1,5 @@
 package auction.com.server;
 
-import auction.com.server.models.Product;
-import auction.com.server.models.Review;
-import auction.com.server.models.filters.ProductFilter;
 import auction.com.server.repository.ProductRepository;
 import auction.com.server.repository.ReviewRepository;
 import auction.com.server.services.ReviewService;
@@ -17,19 +14,10 @@ import jakarta.persistence.EntityTransaction;
 import auction.com.server.services.JpaService;
 import auction.com.server.services.ProductService;
 
-import java.util.List;
-
 @SpringBootApplication//(exclude={DataSourceAutoConfiguration.class})
 @RestController
 public class ServerApplication {
-	private final ProductService productService;
-	private final ReviewService reviewService;
 	private static JpaService jpaService = JpaService.getInstance();
-	public ServerApplication(ProductService productService, ReviewService reviewService) {
-		this.productService = productService;
-		this.reviewService = reviewService;
-	}
-
 	public static void main(String[] args) {
 		try{
 			SpringApplication.run(ServerApplication.class, args);
@@ -47,7 +35,6 @@ public class ServerApplication {
 			jpaService.shutdown();
 		}
 	}
-
 	@Bean
 	protected CommandLineRunner demo(ProductRepository productRepository, ReviewRepository reviewRepository,
 									 ProductService productService, ReviewService reviewService) {
@@ -91,25 +78,5 @@ public class ServerApplication {
 			reviewRepository.save(Review.builder().id(3).productId(3).timestamp("2014-05-20T02:17:00+00:00")
 					.userName("User 6").rating(5).comment("Aenean vestibulum velit id placerat posuere. Praesent...").build());
 					*/};
-	}
-
-	@GetMapping("/products/{id}")
-	public Product getSomeProductById(@PathVariable("id") Long id){
-		return productService.findById(id);
-	}
-
-	@GetMapping("/products")
-	public List<Product>  getProducts(){
-		return productService.list();
-	}
-
-	@GetMapping("/products/{id}/reviews")
-	public List<Review> getReviewsForProduct(@PathVariable("id") int prdId) {
-		return reviewService.getReviewsForProduct(prdId);
-	}
-
-	@GetMapping("/products/search")
-	public List<Product> searchProducts(@RequestBody ProductFilter productFilter){
-		return productService.searchProduct(productFilter);
 	}
 }
