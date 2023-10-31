@@ -1,20 +1,18 @@
 package auction.com.server;
 
-import models.Product;
+import auction.com.server.models.Product;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import services.ProductService;
+import auction.com.server.services.ProductService;
 
 import java.util.List;
 
 //@RunWith(SpringRunner.class)
 @SpringBootTest
 class ProductServiceUnitTest {
-    @Autowired private ProductService productService = new ProductService();//TODO:
+    @Autowired private ProductService productService;//TODO:
 
     @Test
     void whenApplicationStarts_thenHibernateCreatesInitialRecords() {

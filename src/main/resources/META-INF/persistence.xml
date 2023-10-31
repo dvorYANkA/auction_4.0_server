@@ -4,8 +4,8 @@
              version="2.0">
 <persistence-unit name="testEntityManagerFactory" transaction-type="RESOURCE_LOCAL">
     <description>Hibernate EntityManager Demo</description>
-    <class>models.Product</class>
-    <class>models.Review</class>
+    <class>auction.com.server.models.Product</class>
+    <class>auction.com.server.models.Review</class>
     <exclude-unlisted-classes/>
     <properties>
         <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL81Dialect"/>

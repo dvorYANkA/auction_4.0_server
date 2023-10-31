@@ -1,4 +1,4 @@
-package models;
+package auction.com.server.models;
 
 import jakarta.persistence.*;
 import lombok.*;
