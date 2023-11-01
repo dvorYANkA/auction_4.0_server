@@ -52,4 +52,21 @@ public class ProductService {
         }
         return categoryFound;
     }
+
+    public Product update(Product product, long id){
+        Product productDB = productRepository.findById(id);
+
+        productDB.setCategories(product.getCategories());
+        productDB.setTitle(product.getTitle());
+        productDB.setRating(product.getRating());
+        productDB.setDescription(product.getDescription());
+        productDB.setPrice(product.getPrice());
+        productRepository.save(productDB);
+
+        return productRepository.findById(id);
+    }
+
+    public void delete(long id){
+        productRepository.deleteById(id);
+    }
 }

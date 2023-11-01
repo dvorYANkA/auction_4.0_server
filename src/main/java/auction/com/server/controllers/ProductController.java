@@ -5,12 +5,10 @@ import auction.com.server.models.Review;
 import auction.com.server.models.filters.ProductFilter;
 import auction.com.server.services.ProductService;
 import auction.com.server.services.ReviewService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 //RequiredArgsConstructor //decided to use my own -- just because of intuition
@@ -41,4 +39,14 @@ public class ProductController {
     public List<Product> searchProducts(@RequestBody ProductFilter productFilter){
         return productService.searchProduct(productFilter);
     }
-}
+
+    @PutMapping(value = "/products/update/{id}")
+    public Product update(@PathVariable("id") long id,
+                          @RequestBody Product product){
+        return productService.update(product, id);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable("id") long id){
+        productService.delete(id);
+    }}
