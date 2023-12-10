@@ -8,9 +8,9 @@ import auction.com.server.services.ReviewService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
+@RequestMapping("/products")
 //RequiredArgsConstructor //decided to use my own -- just because of intuition
 public class ProductController {
     private final ProductService productService;
@@ -20,27 +20,21 @@ public class ProductController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/products/{id}")
-    public Product getSomeProductById(@PathVariable("id") Long id){
-        return productService.findById(id);
-    }
+    @GetMapping("/{id}")
+    public Product getSomeProductById(@PathVariable("id") Long id){return productService.findById(id);}
 
-    @GetMapping("/products")
-    public List<Product> getProducts(){
-        return productService.list();
-    }
+    @GetMapping()
+    public List<Product> getProducts(){return productService.list();}
 
-    @GetMapping("/products/{id}/reviews")
-    public List<Review> getReviewsForProduct(@PathVariable("id") int prdId) {
-        return reviewService.getReviewsForProduct(prdId);
-    }
+    @GetMapping("/{id}/reviews")
+    public List<Review> getReviewsForProduct(@PathVariable("id") int prdId) {return reviewService.getReviewsForProduct(prdId);}
 
-    @GetMapping("/products/search")
+    @GetMapping("/search")
     public List<Product> searchProducts(@RequestBody ProductFilter productFilter){
         return productService.searchProduct(productFilter);
     }
 
-    @PutMapping(value = "/products/update/{id}")
+    @PutMapping(value = "/update/{id}")
     public Product update(@PathVariable("id") long id,
                           @RequestBody Product product){
         return productService.update(product, id);
@@ -50,3 +44,6 @@ public class ProductController {
     public void delete(@PathVariable("id") long id){
         productService.delete(id);
     }}
+
+
+//TODO разобраться с типами данных (long/Long и т.д.)
