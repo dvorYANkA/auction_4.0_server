@@ -14,6 +14,9 @@ import jakarta.persistence.EntityTransaction;
 import auction.com.server.services.JpaService;
 import auction.com.server.services.ProductService;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 @SpringBootApplication//(exclude={DataSourceAutoConfiguration.class})
 @RestController
 public class ServerApplication {
@@ -29,6 +32,9 @@ public class ServerApplication {
 		//	entityManager.merge(new Review());
 		//	transaction.commit();
 		//	entityManager.close();//TODO: check if it important in general to use such approach with factory/managers/transactions
+			TestClassToDelete.translateText();
+		}catch(IOException ioException){
+			System.out.print(ioException.getMessage());
 		}finally {
 		//	String test = SpringVersion.getVersion();
 		//	jpaService.shutdown();

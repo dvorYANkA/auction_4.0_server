@@ -19,7 +19,3 @@
     </properties>
 </persistence-unit>
 </persistence>
- <!--   <properties>
-        <property name="jakarta.persistence.schema-generation.database.action" value="create" />
-        <property name="hibernate.highlight_sql" value="true" />
-    </properties> -->
